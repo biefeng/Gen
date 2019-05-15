@@ -1,0 +1,66 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: gate-way
+  datasource:
+    url: jdbc:hsqldb:mem:gateway
+    type: org.hsqldb.jdbc.JDBCPool
+
+
+jjwt:
+  signatureKey: lEKiw5VnN2Rf3rV4NZxtsrl70ogHX2piwE0Ecj+NNiwsPG9kdmqwxHBCa839g5M91jm8JDs2b4FfhF/iRTPvYQ==
+  issuer: http://localhost:7537
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 10
+    hostname: localhost
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+
+
+      defaultZone: http://127.0.0.1:7537/eureka/
+
+shiro:
+  filter:
+  - /css/**
+  - /js/**
+  - favicon.ico
+  - /service-suply-1/**
+  - /service-suply-2/**
+  #- /**/*.html
+  logout:
+    /comm/logout
+  authc:
+    /**
+  loginUrl:
+    http://localhost:8080/login.html
+  #/comm/login
+  loginUri:
+    /comm/login
+  successUrl:
+    http://localhost:8080/index.html
+  #/comm/index
+  errorUrl:
+    /403
+  unAuthorizedUrl:
+    http://localhost:8080/unAuthorized.html
+    #/comm/unAuthorized
+
+    #zuul:
+  #routes:
+  #customers: /customers/**
+  #path: /user/**
+logging:
+  level:
+    com.example.gateway: debug
+
+mybatis:
+  mapper-locations: classpath:/com/example/gateway/**/*.xml
+

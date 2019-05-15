@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.service1.dao.BlogDao">
+    <insert id="save">
+
+        <selectKey keyColumn="guid" keyProperty="blogPO.guid" order="BEFORE" resultType="java.lang.String">
+            <choose>
+                <when test="blogPO.guid != null and blogPO.guid != ''">
+                    select guid from t_blog where guid=#{blogPO.guid}
+                </when>
+                <otherwise>
+                    select sys_guid() from dual
+                </otherwise>
+            </choose>
+        </selectKey>
+        declare
+        tmp_content_html t_blog.content_html%type;
+        tmp_content_md t_blog.content_md%type;
+        begin
+        <if test="blogPO.md_splits != null ">
+            tmp_content_md :=
+            <foreach collection="blogPO.md_splits" item="md_split" separator="||" close=";">
+                #{md_split}
+            </foreach>
+        </if>
+
+        <if test="blogPO.html_splits != null ">
+            tmp_content_html :=
+            <foreach collection="blogPO.html_splits" item="html_split" separator="||" close=";">
+                #{html_split}
+            </foreach>
+        </if>
+
+        merge into t_blog a using (select #{blogPO.guid} guid ,empty_clob() content_html,empty_clob() content_md from
+        dual ) b on (b.guid=a.guid)
+        when matched then update set a.content_md=b.content_md,a.content_html=b.content_html,title=#{blogPO.title}
+        when not matched
+        then insert (guid,content_html,content_md,title,create_time)
+        values(b.guid,b.content_html,b.content_md,#{blogPO.title},sysdate);
+        <if test="blogPO.html !=null and blogPO.md !=null">
+            update t_blog set content_md=tmp_content_md ,content_html=tmp_content_html;
+        </if>
+        commit ;
+        end;
+    </insert>
+
+    <select id="get" resultMap="blog">
+        select guid, content_md, content_html
+        from t_blog
+        where guid = #{id}
+    </select>
+
+    <resultMap id="blog" type="java.util.Map">
+        <id column="guid" property="id"></id>
+        <result column="content_md" property="content_md" javaType="java.lang.String"></result>
+        <result column="content_html" property="content_html" javaType="java.lang.String"></result>
+    </resultMap>
+
+    <select id="list" resultType="map">
+        select *
+        from (select t.*, rownum rn from T_BLOG t where rownum <![CDATA[<=]]> #{pageVo.endIndex} order by CREATE_TIME)
+        where rn <![CDATA[>]]> #{pageVo.startIndex}
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(1)
+        from t_blog
+    </select>
+</mapper>

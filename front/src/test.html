@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>canvas turiol</title>
+
+  <script type="application/javascript">
+    function draw() {
+      let div = document.getElementById('canvas');
+      canvas = document.createElement("canvas")
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillRect(25, 25, 100, 100);
+        ctx.clearRect(45, 45, 60, 60);
+        ctx.strokeRect(50, 50, 50, 50);
+      }
+    }
+  </script>
+</head>
+<body onload="draw()">
+<div id="canvas"></div>
+</body>
+</html>

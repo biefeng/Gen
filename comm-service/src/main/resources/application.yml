@@ -1,0 +1,81 @@
+server:
+  port: 7539
+
+spring:
+  application:
+    name: common-service
+  profiles:
+    active: oracle
+    #set the static content locations eg. js/css/html
+  resources:
+    static-locations: classpath:/static
+  freemarker:
+    template-loader-path: classpath:/templates
+  servlet:
+    multipart:
+      max-file-size: 100MB
+
+feign:
+  hystrix:
+    enabled: true
+jjwt:
+  signatureKey: lEKiw5VnN2Rf3rV4NZxtsrl70ogHX2piwE0Ecj+NNiwsPG9kdmqwxHBCa839g5M91jm8JDs2b4FfhF/iRTPvYQ==
+  issuer: http://localhost:7537
+
+sftp:
+  host: 192.168.186.137
+  port: 22
+  userName: root
+  password: 272232
+
+eureka:
+  instance:
+    hostname: localhost
+    status-page-url: http://${eureka.instance.hostname}:${server.port}/swagger-ui.html
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true
+
+mybatis:
+  mapper-locations: classpath:com/example/commservice/mapper/**/*.xml
+
+logging:
+  level:
+    com.example: debug
+  file:  ./files/${spring.application.name}.log
+
+---
+
+spring:
+  profiles: oracle
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    url: jdbc:oracle:thin:@//localhost:1521/ORCL
+    username: SYSTEM
+    password: 272232
+    tomcat:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      test-on-borrow: true
+      test-while-idle: false
+      validation-query: SELECT 1 from dual
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7537/eureka/
+
+---
+
+spring:
+  profiles: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/biefeng
+    username: root
+    password: root
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7537/eureka/

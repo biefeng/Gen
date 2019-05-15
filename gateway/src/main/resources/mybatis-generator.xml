@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--<classPathEntry
+            location="E:\MAVEN_repository\com\github\noraui\ojdbc7\12.1.0.2\ojdbc7-12.1.0.2.jar"></classPathEntry>-->
+    <classPathEntry location="H:\workspace\TMP\Gen\gateway\target\gateway-0.0.1-SNAPSHOT.jar"></classPathEntry>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"></property>
+        </commentGenerator>
+        <connectionFactory type="com.example.gateway.common.database.MybatisGeneratorConnectionFactory">
+            <property name="driverClass" value="org.hsqldb.jdbcDriver"/>
+            <property name="connectionURL" value="jdbc:hsqldb:mem:gateway"/>
+            <property name="userId" value="sa"/>
+            <property name="init_sql" value="create table t_user (
+userName varchar(64),
+password varchar (256),
+passwordSalt varchar (256)
+);"></property>
+        </connectionFactory>
+
+        <!-- <jdbcConnection driverClass="org.hsqldb.jdbc.JDBCDriver"
+                         connectionURL="jdbc:hsqldb:mem:gateway"
+                        >
+         </jdbcConnection>-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.example.gateway.model"
+                            targetProject="H:\workspace\TMP\Gen\gateway\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.example.gateway.mapper"
+                         targetProject="H:\workspace\TMP\Gen\gateway\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.gateway.dao"
+                             targetProject="H:\workspace\TMP\Gen\gateway\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <table tableName="t_user" domainObjectName="User">
+            <property name="useActualColumnNames" value="true"/>
+            <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR"/>-->
+        </table>
+
+    </context>
+</generatorConfiguration>
+
