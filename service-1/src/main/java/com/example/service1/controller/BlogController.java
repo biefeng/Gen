@@ -7,11 +7,11 @@ import com.example.service1.common.util.SftpUtils;
 import com.example.service1.model.BlogPO;
 import com.example.service1.service.BlogService;
 import org.apache.catalina.core.ApplicationPart;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
