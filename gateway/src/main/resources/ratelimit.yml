@@ -1,0 +1,15 @@
+zuul:
+  ratelimit:
+    enabled: true
+    repository: REDIS
+    behind-proxy: true
+    add-response-headers: true
+    default-policy-list:
+      - limit: 10 #request number limit per refresh interval window
+        quota: 1000 #request time limit per refresh interval window (in seconds)
+        refresh-interval: 60 #(in seconds)
+        type:
+          - user
+          - origin
+          - url
+          - httpmethod
