@@ -7,7 +7,7 @@
             <li class="blog-list-li" v-for="blogItem in blogs">
               <div class="list_con">
                 <div class="title">
-                  <router-link :to="{path:'blog/detail',query:{blogId:blogItem.GUID}}"><h2>{{blogItem.TITLE}}</h2>
+                  <router-link :to="{path:'blog/detail',query:{blogId:blogItem.guid}}"><h2>{{blogItem.title}}</h2>
                   </router-link>
                 </div>
                 <div class="summary oneline">1. 吴恩达老师的机器学习和深度学习课程笔记打印版 原文链接： 吴恩达老师的机器学习和深度学习课程笔记打印版</div>
@@ -90,6 +90,8 @@
         }
         this.$http.get("/service-1/blog/list?" + "curPage=" + curPage + "&pageSize=" + this.defaultPageSize).then(res => {
           this.blogs = res.data.data
+          console.log(1)
+          console.log(this.blogs)
           this.totalRows = res.data.totalRows
         });
       }

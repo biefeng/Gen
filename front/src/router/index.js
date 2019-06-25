@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import indexPage from '@/components/index'
+import test from '@/components/test'
 import blog from '@/components/blog/blog'
 import blogLabel from '@/components/blog/blogLabel'
 import blogContainer from '@/components/blog/blogContainer'
@@ -65,6 +67,12 @@ export default new Router({
     {
       path: '/blog/label',
       component: blogLabel
+    }, {
+      path: '/index',
+      component: indexPage
+    }, {
+      path: '/test',
+      component: test
     }
 
   ]

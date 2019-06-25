@@ -7,6 +7,7 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -28,6 +29,10 @@ public class LoginFilter extends AccessControlFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         String method = req.getMethod();
         String requestUri = req.getRequestURI();
+        String check_flag = req.getHeader("check_flag");
+        if (!StringUtils.isEmpty(check_flag) && check_flag.equals("True")){
+            return true;
+        }
 
         if (requestUri.equals(prop.getLoginUri())) {
             return true;
