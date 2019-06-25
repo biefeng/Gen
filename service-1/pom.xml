@@ -4,7 +4,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>service-1</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>service-1</name>
@@ -244,6 +244,6 @@
         <developerConnection>scm:git:http://github.com/biefeng/Gen.git</developerConnection>
         <url>http://127.0.0.1:8081/repository/maven-releases/</url>
         <!--<url>https://github.com/biefeng/Gen</url>-->
-        <tag>HEAD</tag>
+        <tag>service-1-0.0.2</tag>
     </scm>
 </project>
