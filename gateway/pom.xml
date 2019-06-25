@@ -172,13 +172,13 @@
                         <artifactId>hsqldb</artifactId>
                         <version>2.4.0</version>
                     </dependency>
-                    <dependency>
+                    <!--<dependency>
                         <groupId>com.example</groupId>
                         <artifactId>gateway</artifactId>
                         <version>0.0.1-SNAPSHOT</version>
                         <scope>system</scope>
-                        <!--<systemPath>H:/workspace/TMP/Gen/gateway/target/gateway-0.0.1-SNAPSHOT.jar</systemPath>-->
-                    </dependency>
+                        <systemPath>H:/workspace/TMP/Gen/gateway/target/gateway-0.0.1-SNAPSHOT.jar</systemPath>
+                    </dependency>-->
                 </dependencies>
             </plugin>
         </plugins>
