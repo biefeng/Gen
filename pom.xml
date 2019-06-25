@@ -62,7 +62,7 @@
                     <username>335049213@qq.com</username>
                     <password>biefeng123</password>
                     <goals>
-                        <goal>deploy</goal>
+                        deploy
                     </goals>
                 </configuration>
             </plugin>
