@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>comm-service</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>comm-service</name>
     <description>Demo project for Spring Boot</description>
 
@@ -157,7 +157,7 @@
         <developerConnection>scm:git:http://github.com/biefeng/Gen.git</developerConnection>
         <url>http://127.0.0.1:8081/repository/maven-releases/</url>
         <!--<url>https://github.com/biefeng/Gen</url>-->
-        <tag>v0.0.3-SNAPSHOT</tag>
+        <tag>HEAD</tag>
     </scm>
 
 
