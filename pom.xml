@@ -58,7 +58,7 @@
                 <version>2.5.3</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <tagNameFormat>v${project.version}</tagNameFormat>
+                    <tagNameFormat>v-${artifactId}-${project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <username>335049213@qq.com</username>
                     <password>biefeng123</password>
