@@ -59,6 +59,14 @@
             <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:http://github.com/biefeng/Gen.git</connection>
+        <developerConnection>scm:git:http://github.com/biefeng/Gen.git</developerConnection>
+        <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+        <!--<url>https://github.com/biefeng/Gen</url>-->
+        <tag>HEAD</tag>
+    </scm>
     <build>
         <plugins>
             <plugin>
