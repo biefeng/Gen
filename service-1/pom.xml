@@ -4,7 +4,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>service-1</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>service-1</name>
