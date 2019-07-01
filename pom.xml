@@ -4,7 +4,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>SpringC</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>SpringC</name>
@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.1.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -55,13 +55,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <inherited>true</inherited>
                 <configuration>
                     <arguments>
                         -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
                     </arguments>
-                    <tagNameFormat>v${project.version}</tagNameFormat>
+                    <tagNameFormat>v-${artifactId}-${project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-
                     <username>335049213@qq.com</username>
                     <password>biefeng123</password>
                     <goals>

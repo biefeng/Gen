@@ -58,11 +58,22 @@
         <result column="content_html" property="content_html" javaType="java.lang.String"></result>
     </resultMap>
 
-    <select id="list" resultType="map">
+    <select id="list" resultMap="blogResultMap">
         select *
-        from (select t.*, rownum rn from T_BLOG t where rownum <![CDATA[<=]]> #{pageVo.endIndex} order by CREATE_TIME)
+        from (select t.guid, t.create_time, t.title, t.content_md, t.content_html, rownum rn
+              from T_BLOG t
+              where rownum <![CDATA[<=]]> #{pageVo.endIndex}
+              order by CREATE_TIME)
         where rn <![CDATA[>]]> #{pageVo.startIndex}
     </select>
+
+    <resultMap id="blogResultMap" type="com.example.service1.model.BlogPO">
+        <id property="guid" column="guid"></id>
+        <result property="title" column="title"></result>
+        <result property="md" column="content_md"></result>
+        <result property="html" column="content_html"></result>
+        <result property="createTime" column="create_time"></result>
+    </resultMap>
 
     <select id="listCount" resultType="int">
         select count(1)
