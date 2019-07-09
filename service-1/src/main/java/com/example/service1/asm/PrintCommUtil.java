@@ -1,5 +1,8 @@
 package com.example.service1.asm;
 
+import com.example.service1.asm.enums.Font;
+import com.example.service1.asm.enums.Height;
+import com.example.service1.asm.enums.Width;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.image.BufferedImage;
@@ -13,9 +16,18 @@ import javax.imageio.ImageIO;
 
 public class PrintCommUtil {
 
-    public static byte FONT_SIZE = 4;// 字体放大一倍
-    public static byte FONT_BOLD = 8;// 字体加粗
-    public static byte FONT_CLEAR = 0;// 字体加粗
+    private static final int ENQ = 5;
+    private static final int HT = 9;
+    private static final int LF = 10;
+    private static final int FF = 12;
+    private static final int CR = 13;
+    private static final int DLE = 16;
+    private static final int DC4 = 20;
+    private static final int CAN = 24;
+    private static final int ESC = 27;
+    private static final int FS = 28;
+    private static final int GS = 29;
+    private static final int SP = 32;
 
     static int PRINT_PORT = 9100;
     Socket socket = null;
@@ -35,7 +47,7 @@ public class PrintCommUtil {
                 socket.connect(new InetSocketAddress(ip, port), 1500);
             }
             os = new ByteArrayOutputStream();
-            sockoutOs=socket.getOutputStream();
+            sockoutOs = socket.getOutputStream();
             writer = new OutputStreamWriter(os, "GBK");
         } catch (Exception e) {
 
@@ -70,6 +82,45 @@ public class PrintCommUtil {
     public void println(String str) throws IOException {
         if (StringUtils.isNotEmpty(str)) {
             print(str + "\n");
+        }
+    }
+
+    public void setCharacterSize(Width width, Height height) throws IOException {
+        write(ESC, '!', width.code | height.code);
+    }
+
+    public void setAbsolutePosition(int nL, int nH) throws IOException {
+        write(ESC, '$', nL, nH);
+    }
+
+    public void setAbsoluteVerticalPosition(int nL, int nH) throws IOException {
+        write(GS, '$', nL, nH);
+    }
+
+    public void setFont(Font font) throws IOException {
+        write(ESC, 'M', font.code);
+    }
+
+    /**
+     * Sends a string to the printer.
+     *
+     * @param text string
+     * @return {@link EscPosWriter}
+     */
+    public void text(String text) throws IOException {
+        bytes(text.getBytes());
+    }
+
+    /**
+     * Sends a raw byte array to the printer.
+     *
+     * @param bytes byte array
+     * @return {@link EscPosWriter}
+     */
+    public void bytes(byte[] bytes) throws IOException {
+
+        for (byte v : bytes) {
+            os.write(v);
         }
     }
 
@@ -197,10 +248,10 @@ public class PrintCommUtil {
 
     /**
      * 在pageMode下  需执行此命令完成当前页打印
+     *
      * @throws IOException
      */
     public void doPagePrint() throws IOException {
-        writer.write(0x1b);
         writer.write(0x0c);
     }
 
@@ -633,12 +684,26 @@ public class PrintCommUtil {
             if (sockoutOs != null) {
                 sockoutOs.close();
             }
-            if (null != socket || !socket.isClosed()){
+            if (null != socket || !socket.isClosed()) {
                 socket.close();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+    }
+
+    private void write(int val1, int val2, int val3) throws IOException {
+        os.write(val1);
+        os.write(val2);
+        os.write(val3);
+    }
+
+    private void write(int val1, int val2, int val3, int val4) throws IOException {
+        os.write(val1);
+        os.write(val2);
+        os.write(val3);
+        os.write(val4);
     }
 
     public static void main(String[] args) throws Exception {

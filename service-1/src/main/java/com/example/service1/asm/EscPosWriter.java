@@ -2,11 +2,13 @@ package com.example.service1.asm;
 
 import com.example.service1.asm.enums.*;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.net.Socket;
+import java.util.Arrays;
 
 /**
  * Fluent style api for ESC/POS
@@ -27,7 +29,7 @@ public class EscPosWriter {
     private static final int GS = 29;
     private static final int SP = 32;
 
-    private final OutputStream out;
+    private static OutputStream out;
 
     private static final int DEFAULT_PORT = 9100;
     private Socket socket;
@@ -43,10 +45,9 @@ public class EscPosWriter {
     }
 
     public EscPosWriter(String ip, int port) {
-        this.out = new ByteArrayOutputStream();
         try {
             socket = new Socket(ip, port);
-            socketOut = socket.getOutputStream();
+            this.out = socket.getOutputStream();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,7 +118,7 @@ public class EscPosWriter {
      *
      * @return {@link EscPosWriter}
      */
-    public EscPosWriter printAndReturnToStandardMode() {
+    public EscPosWriter doPagePrint() {
         return write(FF);
     }
 
@@ -764,7 +765,7 @@ public class EscPosWriter {
         return write(GS, 'W', nL, nH);
     }
 
-    public EscPosWriter printArea(String x, String y, String width, String height) {
+    public EscPosWriter printArea(int wl, int wh, int hl, int hh) {
 
         write(0x1b);
         write(0x57);
@@ -774,10 +775,14 @@ public class EscPosWriter {
         write(0x00);// n3
         write(0x00);// n4
 
-        write(64);  // n5
-        write(3);   // n6
-        write(120);   // n7
-        write(1);   // n8
+       /* write(54);  // n5
+        write(2);   // n6
+        write(254);   // n7
+        write(1);   // n8*/
+        write(wl);  // n5
+        write(wh);   // n6
+        write(hl);   // n7
+        write(hh);   // n8
         return this;
     }
 
@@ -1465,5 +1470,41 @@ public class EscPosWriter {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public EscPosWriter image(BufferedImage image, int positionNl, int positionNh) throws Exception {
+        byte[] bytes = ImagePixelUtil.imagePixelToPosByte_24(image, 33, positionNl, positionNh);
+        bytes = Arrays.copyOfRange(bytes, 0, bytes.length - 5);
+        //write(new byte[]{27, 51, 15});//设置行间距
+        out.write(bytes);
+        return this;
+    }
+
+    public EscPosWriter adjustLineHight(int height) throws IOException {
+        out.write(27);
+        out.write(51);
+        out.write(height);
+        return this;
+        //writer.write(new byte[]{27, 51, 120}); //设置行间距
+    }
+
+    /**
+     * 方大字体（中英文字符）
+     *
+     * @param width  width=1,2,3,4,5,6   放大倍数
+     * @param height height=1,2,3,4,5,6   放大倍数
+     * @throws IOException
+     */
+    public EscPosWriter zoomIn(int width, int height) throws IOException {
+        out.write(0x1d);
+        out.write(0x21);
+        out.write(handle(width, height));
+        return this;
+    }
+
+    public int handle(int width, int height) {
+        final int high = 0b11110000;
+        int tmp = (width << 4) & high;
+        return height + tmp;
     }
 }

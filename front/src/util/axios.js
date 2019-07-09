@@ -7,7 +7,6 @@ import {
 axios.defaults.withCredentials = true
 const fetchUtil = axios.create({
   baseURL: 'http://localhost:9999/'
-
 })
 
 const qs = require('qs')
