@@ -10,12 +10,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'mavon-editor/dist/css/index.css'
 import 'highlight.js/styles/atom-one-dark.css'
+import {Message} from 'element-ui'
 
-import {
-  Message
-} from 'element-ui'
-
-
+import feather from 'vue-icon'
+import Router from "vue-router";
+Vue.use(ElementUI, Router)
+Vue.use(feather, 'v-icon')
 Vue.config.productionTip = false
 Vue.prototype.$http = axois
 /* eslint-disable no-new */
@@ -37,7 +37,7 @@ requireComponent.keys().forEach(fileName => {
     componentConfig.default || componentConfig
   )
 })
-Vue.use(ElementUI)
+
 const vm = new Vue({
   el: '#app',
   router,

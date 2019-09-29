@@ -16,7 +16,7 @@ public class CommService {
         userDao.registry(userPO);
     }
 
-    @Transactional("getUser")
+    
     public UserPO getUser(String username) {
         return userDao.getUser(username);
     }

@@ -26,7 +26,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("blog")
-@CrossOrigin(allowCredentials = "true")
+@CrossOrigin(allowCredentials = "true",methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.OPTIONS,RequestMethod.POST})
 public class BlogController {
 
 
@@ -46,6 +46,16 @@ public class BlogController {
     private ResponseEntity get(@PathVariable String id) {
         Map<String, String> blog = blogService.get(id);
         return ResponseEntity.ResponseEntityUtil.success(blog, null);
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity delete(@PathVariable String id) {
+        try {
+            blogService.delete(id);
+        } catch (Exception e) {
+            return ResponseEntity.ResponseEntityUtil.success(null, e.getMessage());
+        }
+        return ResponseEntity.ResponseEntityUtil.success(null, "删除成功");
     }
 
     @GetMapping("list")

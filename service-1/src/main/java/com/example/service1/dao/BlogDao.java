@@ -18,5 +18,7 @@ public interface BlogDao {
 
     Map<String, String> get(@Param("id") String id);
 
+    void delete(@Param("id") String id);
+
     List<Map<String, String>> list(@Param("pageVo") PageVo pageVo);
 }

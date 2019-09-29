@@ -1,13 +1,15 @@
 <template>
   <div style="height: 100vh">
-    <div id="blog_detail" >
+    <div id="blog_detail">
 
-      <div id="blogContentDiv" >
+
+      <div id="blogContentDiv">
+        <div style="font-size: 32px;font-weight: bolder;color: #a9a9a9">{{blogContent.TITLE}}</div>
         <div v-html="this.blogContent.content_html" style="float: left;width: 100%"></div>
 
       </div>
       <div id="scroll-bar"
-           style="position: absolute; width: 0.3vw;height: 850px; float: left; background-color: white; z-index: 2;margin-left: 75vw;">
+           style="position: absolute; width: 0.8vw;height: 850px; float: left; background-color: white; z-index: 2;margin-left: 70vw;">
         <div id="scroll-bar-1" :style="{transform: 'translateY('+this.scrollDis+'px)'}"></div>
       </div>
       <div class="clearfloat"></div>
@@ -23,19 +25,22 @@
     data() {
       return {
         blogId: '',
-        blogContent: '',
+        blogContent: {
+          title:''
+        },
         scrollDis: ''
       }
     },
     created() {
-      this.blogId = this.$route.query.blogId
+      this.blogId = this.$route.params.blogId
+      console.log(this.blogId)
       this.getBlogDetail()
 
     },
     mounted() {
 
     },
-    updated(){
+    updated() {
       this.caculateScrollDis()
     },
     methods: {

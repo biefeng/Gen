@@ -29,11 +29,11 @@ eureka:
 
 shiro:
   filter:
-    - /css/**
-    - /js/**
-    - favicon.ico
-    - /service-suply-1/**
-    - /service-suply-2/**
+  - /css/**
+  - /js/**
+  - favicon.ico
+  - /service-suply-1/**
+  - /service-suply-2/**
   #- /**/*.html
   logout:
     /comm/logout
@@ -53,7 +53,7 @@ shiro:
     http://localhost:8080/unAuthorized.html
     #/comm/unAuthorized
 
-  #zuul:
+    #zuul:
   #routes:
   #customers: /customers/**
   #path: /user/**

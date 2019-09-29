@@ -7,7 +7,7 @@
             <li class="blog-list-li" v-for="blogItem in blogs">
               <div class="list_con">
                 <div class="title">
-                  <router-link :to="{path:'blog/detail',query:{blogId:blogItem.guid}}"><h2>{{blogItem.title}}</h2>
+                  <router-link :to="{name:'blogDetail',params:{blogId:blogItem.guid}}"><h2>{{blogItem.title}}</h2>
                   </router-link>
                 </div>
                 <div class="summary oneline">1. 吴恩达老师的机器学习和深度学习课程笔记打印版 原文链接： 吴恩达老师的机器学习和深度学习课程笔记打印版</div>
@@ -174,18 +174,11 @@
     height: 3px;
   }
 
-
-
   #blogPanel {
-
-    /*border: 1px solid brown;*/
     width: 100%;
-
     min-height: 850px;
     position: relative;
     float: left;
-
-    /*overflow-y: hidden;*/
   }
 
   #scroll-bar-1 {

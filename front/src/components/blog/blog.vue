@@ -13,7 +13,6 @@
 <style scoped>
   #blog {
     position: relative;
-    top: 90px;
     width: 100vw;
     height: 90vh;
   }

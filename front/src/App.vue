@@ -53,6 +53,7 @@
   #indexPanel {
     z-index: 0;
     position: fixed;
-    width: 1920px;
+    width: 1850px;
+    top: 90px;
   }
 </style>

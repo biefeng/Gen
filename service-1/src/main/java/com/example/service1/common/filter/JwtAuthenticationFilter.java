@@ -55,6 +55,7 @@ public class JwtAuthenticationFilter implements Filter {
             res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, req.getHeader(HttpHeaders.ORIGIN.toLowerCase()));
             res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, String.valueOf(true));
             res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, req.getHeader(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS.toLowerCase()));
+            res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS,"DELETE");
             response.getWriter().print("the user has not been authenticated");
         }
 

@@ -87,6 +87,13 @@
         }
       };
     },
+    created() {
+      let blog = this.$route.params.row
+      if (blog) {
+        this.context = blog.md
+        this.title = blog.title
+      }
+    },
     methods: {
       back() {
         this.$router.go(-1)
@@ -176,7 +183,5 @@
     display: inline;
     width: 400px;
   }
-
-
 </style>
 

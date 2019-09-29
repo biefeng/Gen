@@ -60,8 +60,8 @@
         hovered: "",
         menus: [
           {name: "写博客", path: "/blog/edit"},
-          {name: "博客管理", path: ""},
-          {name: "消息中心", path: ""}
+          {name: "消息中心", path: ""},
+          {name: "后台管理", path: "/adminContainer"}
         ]
 
       }
@@ -88,7 +88,7 @@
 
 <style scoped>
   #navigation {
-    background-color: rgba(128, 128, 128, 0.5);
+    background-color: rgb(195, 32, 41);
 
     top: 10px;
     position: fixed;
@@ -100,11 +100,11 @@
 
   #menu {
     z-index: 20;
-
+border-radius: 3px;
     position: relative;
     text-align: center;
     padding: auto;
-    background-color: rgba(255, 45, 45, 0.23);
+    background-color: rgb(243, 202, 68);
     width: 150px;
 
   }
@@ -112,6 +112,7 @@
   #menu a p {
     height: 25px;
     margin: 0px;
+    border-radius: 3px;
     line-height: 25px;
     margin: auto;
     padding: 0px 6px;
@@ -157,7 +158,7 @@
   }
 
   .hover {
-    background-color: #442fff;
+    background-color: #8639ff;
   }
 
   a {

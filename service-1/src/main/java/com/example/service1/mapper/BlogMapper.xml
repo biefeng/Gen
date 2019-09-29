@@ -40,14 +40,14 @@
         then insert (guid,content_html,content_md,title,create_time)
         values(b.guid,b.content_html,b.content_md,#{blogPO.title},sysdate);
         <if test="blogPO.html !=null and blogPO.md !=null">
-            update t_blog set content_md=tmp_content_md ,content_html=tmp_content_html;
+            update t_blog set content_md=tmp_content_md ,content_html=tmp_content_html where guid=#{blogPO.guid};
         </if>
         commit ;
         end;
     </insert>
 
     <select id="get" resultMap="blog">
-        select guid, content_md, content_html
+        select guid, content_md,title, content_html
         from t_blog
         where guid = #{id}
     </select>
@@ -57,6 +57,10 @@
         <result column="content_md" property="content_md" javaType="java.lang.String"></result>
         <result column="content_html" property="content_html" javaType="java.lang.String"></result>
     </resultMap>
+
+    <delete id="delete">
+        delete  from t_blog t where t.guid = #{id}
+    </delete>
 
     <select id="list" resultMap="blogResultMap">
         select *

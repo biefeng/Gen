@@ -52,6 +52,10 @@ public class BlogService {
         return blogDao.get(id);
     }
 
+    public void delete(String id){
+        blogDao.delete(id);
+    }
+
     public List<Map<String, String>> list(PageVo pageVo) {
         return blogDao.list(pageVo);
     }
