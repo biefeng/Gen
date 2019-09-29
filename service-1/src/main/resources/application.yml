@@ -5,7 +5,7 @@ spring:
   application:
     name: service-1
   profiles:
-    active: oracle
+    active: mysql
     #set the static content locations eg. js/css/html
   resources:
     static-locations: classpath:/static
@@ -14,6 +14,12 @@ spring:
   servlet:
     multipart:
       max-file-size: 100MB
+  zipkin:
+    base-url: http://207.148.77.180:9411
+    sleuth:
+      sampler:
+        percentage: 1.0
+
 
 feign:
   hystrix:
@@ -70,9 +76,14 @@ eureka:
 spring:
   profiles: mysql
   datasource:
-    url: jdbc:mysql://localhost:3306/biefeng
+#    url: jdbc:mysql://localhost:3306/biefeng
+    url: jdbc:mysql://10.128.62.33:3306/jy_catering?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&tinyInt1isBit=false
     username: root
     password: root
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    tomcat:
+      driver-class-name:
+        com.mysql.jdbc.Driver
 
 eureka:
   client:
