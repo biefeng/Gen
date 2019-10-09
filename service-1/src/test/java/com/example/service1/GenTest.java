@@ -7,6 +7,8 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -88,7 +90,6 @@ public class GenTest {
     }
 
 
-
     /**
      * 进入目录，如果不存在就创建目录
      *
@@ -115,7 +116,39 @@ public class GenTest {
                 sftp.cd(str);
             }
         }
+    }
 
-
+    /**
+     * 根据字符串长度限制做自动换行
+     *
+     * @throws UnsupportedEncodingException
+     */
+    @Test
+    public void splitStr() throws UnsupportedEncodingException {
+        List<String> list = new ArrayList<>();
+        String content = "你是魔鬼吗你是1234567890魔1234567890鬼吗，。，,.,.,.你是魔鬼吗你是魔鬼吗你是魔鬼吗你是魔鬼吗你是魔鬼吗你是魔鬼吗";
+        byte[] bytes = content.getBytes("GBK");
+        System.out.println("bytes长度：" + bytes.length);
+        int count = 0;
+        int limit = 12;
+        int index = 0;
+        int bukket = 0;
+        for (int i = 0; i < bytes.length; i++) {
+            bukket++;
+            if (bytes[i] >= 0 && bytes[i] < 128) {
+                count++;
+            } else {
+                count++;
+                i++;
+                bukket++;
+            }
+            if (bukket >= limit || i == bytes.length - 1) {
+                list.add(content.substring(index, index + count));
+                index += count;
+                count = 0;
+                bukket = 0;
+            }
+        }
+        System.out.println(list);
     }
 }
